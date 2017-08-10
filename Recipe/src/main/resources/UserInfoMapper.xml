@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.wj.Mappers.UserInfoMapper">
+  <!-- 유저 데이터 불러오기 로그인할때 id pwd 체크 있으면 count라는 컬럼으로 1이라는 값이 나옴-->
+  <select id="userLogin" resultType="int">
+
+  <![CDATA[  
+			SELECT COUNT(*) FROM USERINFO   
+			WHERE USR_ID= #{usr_id} AND USR_PWD=#{usr_pwd} AND USR_ISDELETE=0;
+	]]>
+
+	</select>
+
+  	<!-- 유저 아이디 만들기 회원가입 dto에 북마크 없는데 수정하기 귀찮아서 그냥 스트링으로 집어넣은거 -->
+	<insert id = "userRegist">
+
+	<![CDATA[
+	INSERT INTO USERINFO 
+	VALUES(#{usr_id},#{usr_pwd},#{usr_index},
+	#{usr_email},#{usr_grade},#{usr_birth},
+	#{usr_gender},#{usr_platform},
+	#{usr_name},"test02");
+	]]>
+	
+	</insert>
+
+	<select id="userLogin" resultType="com.wj.domain.UserInfoDTO">
+
+  <![CDATA[  
+         SELECT * FROM USERINFO   
+         WHERE USR_ID= #{usr_id} AND USR_PWD=#{usr_pwd};
+   ]]>
+
+   </select>
+	  <!-- 데이터 변경-->
+  <update id="userDatachange" >
+
+  <![CDATA[  
+			UPDATE USERINFO SET 
+	VALUES(#{usr_id},#{usr_pwd},#{usr_index},
+	#{usr_email},#{usr_grade},#{usr_birth},
+	#{usr_gender},#{usr_platform},
+	#{usr_name},"test02") WHERE USR_INDEX= #{usr_index} ;
+	]]>
+
+	</update>
+
+	  <!-- 데이터 삭제-->
+  <update id="userDataDelete" >
+
+  <![CDATA[  
+			UPDATE USERINFO SET 
+	USR_ISDELETE=1 WHERE USR_INDEX= #{usr_index} ;
+	]]>
+
+	</update>
+	
+  </mapper>

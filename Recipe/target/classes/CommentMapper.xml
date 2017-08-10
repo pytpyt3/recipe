@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.wj.Mappers.CommentMapper">
+  	<!-- 유저 아이디 만들기 회원가입 dto에 북마크 없는데 수정하기 귀찮아서 그냥 스트링으로 집어넣은거 -->
+	<insert id = "CommentRegist">
+
+	<![CDATA[
+	INSERT INTO COMMENT
+	VALUES(#{COMMENT_INDEX},  #{COMMENT_CONTENT},
+	#{COMMENT_ISDELETE},
+	NOW(),#{USR_ID}, #{COMMENT_PASSWORD},
+	#{RECIPE_NO});
+	]]>
+	
+	</insert>
+  <!-- 유저 데이터 불러오기 로그인할때 id pwd 체크 있으면 count라는 컬럼으로 1이라는 값이 나옴-->
+  <select id="CommentLoad" resultType="int">
+
+  <![CDATA[  
+			SELECT COUNT(*) FROM COMMENT   
+			WHERE COMMENT_NO= #{COMMENT_NO} AND COMMENT_ISDELETE=0;
+	]]>
+
+	</select>
+	  <!-- 데이터 변경-->
+  <update id="CommentDatachange" >
+
+  <![CDATA[  
+			UPDATE COMMENT SET 
+	VALUES(#{COMMENT_INDEX},  #{COMMENT_CONTENT},
+	#{COMMENT_ISDELETE},
+	NOW(),#{USR_ID}, #{COMMENT_PASSWORD},
+	#{RECIPE_NO});
+	]]>
+
+	</update>
+
+	  <!-- 데이터 삭제-->
+  <update id="COMMENTDataDelete" >
+
+  <![CDATA[  
+			UPDATE COMMENT SET 
+	COMMENT_ISDELETE=1 WHERE COMMENT_INDEX= #{COMMENT_INDEX} ;
+	]]>
+
+	</update>
+	
+  </mapper>

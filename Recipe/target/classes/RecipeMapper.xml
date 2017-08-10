@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.wj.Mappers.RecipeMapper">
+  	<!-- 유저 아이디 만들기 회원가입 dto에 북마크 없는데 수정하기 귀찮아서 그냥 스트링으로 집어넣은거 -->
+	<insert id = "RecipeRegist">
+
+	<![CDATA[
+	INSERT INTO RECIPE
+	VALUES(#{RECIPE_NO}, #{RECIPE_INDEX}, #{USR_ID}, #{RECIPE_CONTENT},
+	#{RECIPE_ISDELETE}, #{RECIPE_WRITEDATE}, #{RECIPE_TITLE}, #{CG_GRP}, #{CG_ID},
+	#{FILE_INDEX}, #{THUMBNAIL_INDEX});
+	]]>
+	
+	</insert>
+  <!-- 유저 데이터 불러오기 로그인할때 id pwd 체크 있으면 count라는 컬럼으로 1이라는 값이 나옴-->
+  <select id="RecipeLoad" resultType="int">
+
+  <![CDATA[  
+			SELECT COUNT(*) FROM RECIPE   
+			WHERE RECIPE_NO= #{RECIPE_NO} AND RECIPE_ISDELETE=0;
+	]]>
+
+	</select>
+	  <!-- 데이터 변경-->
+  <update id="RecipeDatachange" >
+
+  <![CDATA[  
+			UPDATE RECIPE SET 
+	VALUES(#{RECIPE_NO}, #{RECIPE_INDEX}, #{USR_ID}, #{RECIPE_CONTENT},
+	#{RECIPE_ISDELETE}, #{RECIPE_WRITEDATE}, #{RECIPE_TITLE}, #{CG_GRP}, #{CG_ID},
+	#{FILE_INDEX}, #{THUMBNAIL_INDEX});
+	]]>
+
+	</update>
+
+	  <!-- 데이터 삭제-->
+  <update id="RecipeDataDelete" >
+
+  <![CDATA[  
+			UPDATE RECIPE SET 
+	RECIPE_ISDELETE=1 WHERE RECIPE_INDEX= #{RECIPE_INDEX} ;
+	]]>
+
+	</update>
+	
+  </mapper>
